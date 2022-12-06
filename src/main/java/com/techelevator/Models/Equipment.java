@@ -19,4 +19,9 @@ public class Equipment {
     public void setEqName(String eqName) {
         this.eqName = eqName;
     }
+
+    @Override
+    public String toString() {
+        return eqId + ") " + eqName;
+    }
 }

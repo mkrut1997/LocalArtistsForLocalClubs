@@ -19,4 +19,9 @@ public class Type {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
+
+    @Override
+    public String toString() {
+        return typeId + ") " + typeName;
+    }
 }

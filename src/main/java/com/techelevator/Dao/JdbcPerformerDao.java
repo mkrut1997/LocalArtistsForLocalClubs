@@ -51,7 +51,7 @@ public class JdbcPerformerDao implements PerformerDao {
 
     @Override
     public Performer createPerformer(Performer performer) {
-        String sql = "INSERT INTO performer (type_id, performer_name, email, phone_number, eq_id, soundcloud_url " +
+        String sql = "INSERT INTO performer (type_id, performer_name, email, phone_number, eq_id, soundcloud_url) " +
                     "VALUES (?, ?, ?, ?, ?, ?) RETURNING performer_id;";
         int newPerformerId = jdbcTemplate.queryForObject(sql, int.class, performer.getType_id(), performer.getPerformerName(), performer.getEmail(), performer.getPhoneNumber(), performer.getEqId(), performer.getSoundcloudUrl());
         return getPerformer(newPerformerId);

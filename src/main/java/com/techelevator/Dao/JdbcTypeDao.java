@@ -19,7 +19,7 @@ public class JdbcTypeDao implements TypeDao{
     @Override
     public Type getType(int typeId) {
         Type type = null;
-        String sql = "SELECT * FROM type WHERE type_id = ?;";
+        String sql = "SELECT * FROM performer_type WHERE type_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, typeId);
         if(result.next()){
             type = mapRowToType(result);
@@ -30,7 +30,7 @@ public class JdbcTypeDao implements TypeDao{
     @Override
     public List<Type> getAllTypes() {
         List<Type> types = new ArrayList<>();
-        String sql = "SELECT * FROM type;";
+        String sql = "SELECT * FROM performer_type;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()){
             types.add(mapRowToType(results));

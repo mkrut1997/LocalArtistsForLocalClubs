@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.Dao.*;
+import com.techelevator.Models.Performer;
 import com.techelevator.user.UserIn;
 import com.techelevator.user.UserOut;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -37,9 +38,57 @@ public class PerformerCLI {
     }
 
     public void run(){
-        UserOut.displayHomePerformer();
-        String action = in.getPerformerOptionInput();
+        while(true) {
+            UserOut.displayHomePerformer();
+            String action = in.getPerformerOptionInput();
+            if (action.equals("create performer")) {
+                option1();
+            }
+            else if(action.equals("update performer")){
+                option2();
+            }
+            else {
+                break;
+            }
+        }
 
+    }
+
+    public void option1(){
+        Performer performer = new Performer();
+        UserOut.displayMessage("Please select a performer type");
+        UserOut.displayTypeOptions(typeDao.getAllTypes());
+        performer.setType_id(in.getTypeIdFromUser(typeDao.getAllTypes()));
+        UserOut.displayMessage("Please enter your name or your group's name");
+        performer.setPerformerName(in.getNameFromUser());
+        UserOut.displayMessage("Please enter your email address");
+        performer.setEmail(in.getEmailFromUser());
+        UserOut.displayMessage("Please enter your phone number (optional)");
+        performer.setPhoneNumber(in.getPhoneFromUser());
+        UserOut.displayMessage("Please choose the equipment desired for your act");
+        UserOut.displayEquipmentOptions(equipmentDao.getAllEquipment());
+        performer.setEqId(in.getEquipmentIdFromUser(equipmentDao.getAllEquipment()));
+        UserOut.displayMessage("Please enter a Soundcloud or Youtube playlist link of your music");
+        performer.setSoundcloudUrl(in.getLinkFromUser());
+        Performer createdPerformer = performerDao.createPerformer(performer);
+        UserOut.displayMessage("Congrats " + createdPerformer.getPerformerName() + "! You are added to our database!");
+        UserOut.promptForGenres();
+        String genreAction = in.getGenreOptionInput();
+        if (genreAction.equals("add genres")) {
+            UserOut.displayGenreOptions(genreDao.getAllGenres());
+            int[] genreKeys = in.getAllGenresFromUser();
+            for(int key : genreKeys){
+                performerDao.addGenreToPerformer(createdPerformer.getPerformerId(), key);
+            }
+            UserOut.displayMessage("Genre(s) added! Returning to home screen");
+        }
+        else{
+            UserOut.displayMessage("Returning to home screen!");
+        }
+
+    }
+
+    public void option2(){
 
     }
 
