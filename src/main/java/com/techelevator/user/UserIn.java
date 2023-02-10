@@ -36,6 +36,34 @@ public class UserIn {
         }
         return action;
     }
+
+    public String getPerformerUpdateInput(){
+        String action = "";
+        while(true) {
+            UserOut.displayUpdateOptions();
+            int input = Integer.parseInt(sc.nextLine());
+            if(input==1){
+                action = "email";
+                break;
+            }
+            else if(input==2){
+                action = "phone";
+                break;
+            }
+            else if(input==3){
+                action = "equipment";
+                UserOut.displayMessage("Thank you!");
+            }
+            else if(input==4){
+                action = "genre";
+            }
+            else{
+                UserOut.displayMessage("INVALID SELECTION, TRY AGAIN");
+            }
+        }
+        return action;
+    }
+
     public String getGenreOptionInput(){
         String action = "";
         while(true) {
@@ -147,6 +175,8 @@ public class UserIn {
         }
         return link;
     }
+
+
 
 
 

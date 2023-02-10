@@ -30,7 +30,7 @@ CREATE TABLE performer (
 	CONSTRAINT FK_performer_type FOREIGN KEY (type_id) REFERENCES performer_type (type_id),
 	CONSTRAINT FK_equipment_performer FOREIGN KEY (eq_id) REFERENCES equipment (eq_id),
 	CONSTRAINT UQ_email UNIQUE (email),
-	CONSTRAINT CHL_soudcloud CHECK(soundcloud_url LIKE '%soundcloud.com%')
+	CONSTRAINT CHK_soudcloud CHECK(soundcloud_url LIKE '%.com%')
 );
 
 CREATE TABLE genre (
@@ -102,7 +102,23 @@ SELECT * FROM performer;
 
 SELECT performer.performer_id, type_id, performer_name, email, phone_number, eq_id, soundcloud_url FROM performer
                     JOIN performer_genre ON performer_genre.performer_id = performer.performer_id
-                    WHERE genre_id = 3;
+					JOIN genre ON genre.genre_id = performer_genre.genre_id
+                    WHERE genre_name = 'House';
+					
+SELECT * FROM genre;
+
+select performer_name, eq_name From performer
+join equipment ON equipment.eq_id = performer.eq_id
+where performer_name LIKE '%Stefan%';
+
+
+
+select count(*)
+from performer;
+
+select eq_name, performer_name FROM performer
+left join equipment on performer.eq_id = equipment.eq_id
+where performer_id IN (1, 2);
 
 
 

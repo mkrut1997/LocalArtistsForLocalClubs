@@ -89,6 +89,13 @@ public class PerformerCLI {
     }
 
     public void option2(){
+        UserOut.displayMessage("Please enter your email address");
+        Performer performer = performerDao.getPerformerByEmail(in.getEmailFromUser());
+        if(performer == null){
+            UserOut.displayMessage("Email not in system, re-routing to Create Profile");
+            option1();
+        }
+        UserOut.displayMessage("Welcome back " + performer.getPerformerName() + "!");
 
     }
 

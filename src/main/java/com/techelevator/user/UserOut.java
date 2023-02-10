@@ -52,5 +52,14 @@ public class UserOut {
         }
     }
 
+    public static void displayUpdateOptions(){
+        String updateOptions = "\nWhat would you like to update?" +
+                "\n1) Email address" +
+                "\n2) Phone number" +
+                "\n3) Equipment" +
+                "\n4) Genres";
+        System.out.println(updateOptions);
+    }
+
 
 }
